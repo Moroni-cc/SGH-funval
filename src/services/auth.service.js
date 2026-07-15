@@ -23,3 +23,4 @@ export async function getProfile() {
 export async function logout() {
     await api.post(ENDPOINTS.AUTH.LOGOUT);
 }
+

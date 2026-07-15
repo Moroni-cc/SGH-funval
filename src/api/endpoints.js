@@ -7,3 +7,4 @@ export const ENDPOINTS = {
         ME: "/profile/me",
     },
 };
+
