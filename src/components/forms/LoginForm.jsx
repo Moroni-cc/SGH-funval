@@ -1,108 +1,95 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginService } from '../../services/auth.service';
-// import { useAuth } from '../../hooks/useAuth'; // Descomentar cuando Thalía termine su parte
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { validateLoginForm } from "../../utils/validators";
+import { ROLE_HOME_ROUTES } from "../../utils/constants";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
 
-export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  
-  const navigate = useNavigate();
-  // const { loginContext } = useAuth(); // Para guardar el estado global luego
+const INITIAL_FORM = { email: "", password: "" };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+function LoginForm() {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    if (!email || !password) {
-      setError('Por favor, completa todos los campos.');
-      return;
+    const [form, setForm] = useState(INITIAL_FORM);
+    const [errors, setErrors] = useState({});
+    const [serverError, setServerError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+        setServerError("");
     }
 
-    setIsLoading(true);
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setServerError("");
 
-    try {
-      const data = await loginService({ email, password });
-       const { role } = data; // Ajustar según respuesta de la API
+        const validationErrors = validateLoginForm(form);
+        setErrors(validationErrors);
+        if (Object.keys(validationErrors).length > 0) return;
 
-      // loginContext(user, role); 
-
-      if (role === 'ADMIN') {
-        navigate('/admin');
-      } else if (role === 'STUDENT') {
-        navigate('/student');
-      } else {
-        navigate('/');
-      }
-
-    } catch (err) {
-      if (err.response?.status === 401) {
-        setError('Correo o contraseña incorrectos.');
-      } else {
-        setError('Error al iniciar sesión. Intenta de nuevo.');
-      }
-    } finally {
-      setIsLoading(false);
+        setLoading(true);
+        try {
+            const profile = await login(form);
+            const from = location.state?.from?.pathname;
+            const redirectTo = from || ROLE_HOME_ROUTES[profile.role] || "/";
+            navigate(redirectTo, { replace: true });
+        } catch (error) {
+            if (error.response?.status === 401) {
+                setServerError("Credenciales inválidas. Verifica tu correo y contraseña.");
+            } else {
+                setServerError("Ocurrió un error al iniciar sesión. Intenta nuevamente.");
+            }
+        } finally {
+            setLoading(false);
+        }
     }
-  };
 
-  const loadDemo = (demoEmail, demoPass) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setError('');
-  };
+    return (
+        <form onSubmit={handleSubmit} noValidate className="flex w-full flex-col gap-4">
+            <Input
+                label="Correo electrónico"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                error={errors.email}
+                placeholder="correo@ejemplo.com"
+                autoComplete="email"
+                disabled={loading}
+            />
 
-  return (
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Correo institucional</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="nombre@funval.org"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            disabled={isLoading}
-          />
-        </div>
+            <Input
+                label="Contraseña"
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                error={errors.password}
+                placeholder="••••••••"
+                autoComplete="current-password"
+                disabled={loading}
+            />
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            disabled={isLoading}
-          />
-        </div>
+            {serverError && (
+                <p
+                    role="alert"
+                    className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600"
+                >
+                    {serverError}
+                </p>
+            )}
 
-        {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={`w-full py-2.5 px-4 bg-[#2563EB] hover:bg-blue-700 text-white rounded-lg font-medium ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
-        >
-          {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
-        </button>
-      </form>
-
-      {/* Botones Demo */}
-      <div className="mt-8">
-        <div className="relative flex items-center justify-center mb-6">
-          <div className="border-t border-gray-200 w-full absolute"></div>
-          <span className="bg-white px-4 text-xs text-gray-400 font-medium uppercase tracking-wider relative">Acceso de demostración</span>
-        </div>
-        <div className="flex gap-3">
-          <button onClick={() => loadDemo('student@funval.com', '12345678')} type="button" className="flex-1 py-2 px-4 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">Estudiante</button>
-          <button onClick={() => loadDemo('admin@funval.com', '1234567890')} type="button" className="flex-1 py-2 px-4 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50">Administrador</button>
-        </div>
-      </div>
-    </div>
-  );
+            <Button type="submit" loading={loading}>
+                {loading ? "Ingresando..." : "Iniciar sesión"}
+            </Button>
+        </form>
+    );
 }
+
+export default LoginForm;

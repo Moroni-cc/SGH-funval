@@ -1,6 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const axiosInstance = axios.create({
-  baseURL: 'https://www.hs-api.devfunval.cloud', 
-  withCredentials: true 
+const api = axios.create({
+    baseURL: "/api/v1",
+    withCredentials: true,
+    headers: {
+        "Content-Type": "application/json",
+    },
 });
+
+export default api;
