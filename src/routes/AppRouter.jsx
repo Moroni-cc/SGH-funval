@@ -7,28 +7,30 @@ import StudentDashboard from "../pages/student/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminRoute from "./AdminRoute";
 import StudentRoute from "./StudentRoute";
+import PublicRoute from "./PublicRoute";
 
 function AppRouter() {
-    return (
-        <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/unauthorized" element={<Unauthorized />} />
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route element={<PublicRoute />}>
+        <Route path="/login" element={<Login />} />
+      </Route>
+      <Route path="/unauthorized" element={<Unauthorized />} />
 
-            <Route element={<ProtectedRoute />}>
-                <Route element={<AdminRoute />}>
-                    <Route path="/admin" element={<AdminDashboard />} />
-                </Route>
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+        </Route>
 
-                <Route element={<StudentRoute />}>
-                    <Route path="/student" element={<StudentDashboard />} />
-                </Route>
-            </Route>
+        <Route element={<StudentRoute />}>
+          <Route path="/student" element={<StudentDashboard />} />
+        </Route>
+      </Route>
 
-            <Route path="*" element={<NotFound />} />
-        </Routes>
-    );
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 }
 
 export default AppRouter;
-
