@@ -5,9 +5,9 @@ import Unauthorized from "../pages/shared/Unauthorized";
 import AdminDashboard from "../pages/admin/Dashboard";
 import StudentDashboard from "../pages/student/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
-import AdminRoute from "./AdminRoute";
-import StudentRoute from "./StudentRoute";
 import PublicRoute from "./PublicRoute";
+import RoleRoute from "./RolRoute";
+import { ROLES } from "../utils/constants";
 
 function AppRouter() {
   return (
@@ -19,11 +19,11 @@ function AppRouter() {
       <Route path="/unauthorized" element={<Unauthorized />} />
 
       <Route element={<ProtectedRoute />}>
-        <Route element={<AdminRoute />}>
+        <Route element={<RoleRoute allowedRoles={[ROLES.ADMIN]}/>}>
           <Route path="/admin" element={<AdminDashboard />} />
         </Route>
 
-        <Route element={<StudentRoute />}>
+        <Route element={<RoleRoute allowedRoles={[ROLES.STUDENT]} />}>
           <Route path="/student" element={<StudentDashboard />} />
         </Route>
       </Route>
