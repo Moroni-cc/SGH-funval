@@ -35,8 +35,18 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
       icon: Users,
     },
     {
-      name: 'Categorías y cursos',
+      name: 'Categorías',
       path: '/admin/categories',
+      icon: FolderKanban,
+    },
+    {
+      name: 'Cursos',
+      path: '/admin/courses',
+      icon: FolderKanban,
+    },
+    {
+      name: 'Países',
+      path: '/admin/countries',
       icon: FolderKanban,
     },
     {
