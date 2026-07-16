@@ -8,7 +8,10 @@ import Categories from '../pages/admin/Categories';
 import Courses from '../pages/admin/Courses';
 import Countries from "../pages/admin/Countries";
 
-// Importación corregida de tu perfil (usando la P mayúscula para evitar errores de compilación)
+// Componentes importados desde la rama JJ/Logout-loadingFile
+import HourForm from '../components/forms/HourForm';
+
+// Importación corregida de tu perfil (con P mayúscula para evitar errores en Vercel)
 import Profile from "../pages/profile/Perfil";
 
 import ProtectedRoute from './ProtectedRoute';
@@ -47,6 +50,7 @@ function AppRouter() {
           {/* Solo Student */}
           <Route element={<RoleRoute allowedRoles={[ROLES.STUDENT]} />}>
             <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/student/new-report" element={<HourForm />} />
           </Route>
 
           {/* Accesible para ADMIN y STUDENT */}
