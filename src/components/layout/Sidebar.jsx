@@ -46,10 +46,11 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     },
     {
       name: 'Mi perfil',
-      path: '/profile',
+      path: '/perfil', // <-- CORREGIDO AQUÍ
       icon: User,
     },
   ]
+  
   const studentLinks = [
     {
       section: 'ESTUDIANTE',
@@ -71,7 +72,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     },
     {
       name: 'Mi perfil',
-      path: '/profile',
+      path: '/perfil', // <-- Y CORREGIDO AQUÍ
       icon: User,
     },
   ]
@@ -81,7 +82,6 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
   return (
     <>
       {/* Fondo oscuro */}
-
       {isSidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
@@ -90,12 +90,9 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
       )}
 
       {/* Sidebar */}
-
       <aside
         className={`fixed top-0 left-0 z-50 flex h-full w-72 flex-col  bg-[rgb(30,57,132)] shadow-lg transition-transform duration-300
-
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-
                 lg:translate-x-0`}
       >
         <div className="flex items-center justify-between  p-4">
