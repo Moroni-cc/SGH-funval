@@ -8,7 +8,7 @@ import Categories from '../pages/admin/Categories';
 import Courses from '../pages/admin/Courses';
 
 // 1. Importación corregida de tu perfil
-import Profile from "../pages/profile/perfil";
+import Profile from "../pages/profile/Perfil";
 
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoute';
