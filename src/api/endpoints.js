@@ -6,5 +6,8 @@ export const ENDPOINTS = {
     PROFILE: {
         ME: "/profile/me",
     },
+    CATEGORIES: {
+        LIST: "/categories/",
+        DETAIL: (id) => `/categories/${id}`,
+    },
 };
-
