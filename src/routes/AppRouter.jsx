@@ -14,6 +14,7 @@ import PublicRoute from './PublicRoute'
 import RoleRoute from './RolRoute'
 import { ROLES } from '../utils/constants'
 import DashboardLayout from '../layouts/DashboardLayout'
+import HourForm from '../components/forms/HourForm'
 
 function AppRouter() {
   return (
@@ -45,7 +46,12 @@ function AppRouter() {
           {/* SOLO ESTUDIANTES */}
           <Route element={<RoleRoute allowedRoles={[ROLES.STUDENT]} />}>
             <Route path="/student" element={<StudentDashboard />} />
+                      <Route
+              path="/student/new-report"
+              element={<HourForm />}
+          ></Route>
           </Route>
+          
 
         </Route>
       </Route>
