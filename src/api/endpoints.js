@@ -10,4 +10,8 @@ export const ENDPOINTS = {
         LIST: "/categories/",
         DETAIL: (id) => `/categories/${id}`,
     },
+        COURSES: {
+        LIST: "/courses/",
+        DETAIL: (id) => `/courses/${id}`,
+    },
 };
