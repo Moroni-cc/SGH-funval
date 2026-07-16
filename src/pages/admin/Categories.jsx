@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
     getCategories,
     createCategory,
@@ -20,9 +20,8 @@ function Categories() {
     const [deleting, setDeleting] = useState(null); // categoría por eliminar
     const { showToast } = useToast();
 
-    const loadCategories = async () => {
+    const loadCategories = useCallback(async () => {
         try {
-            setLoading(true);
             const data = await getCategories();
             setCategories(data);
         } catch {
@@ -30,11 +29,14 @@ function Categories() {
         } finally {
             setLoading(false);
         }
-    };
+   }, [showToast]);
 
+   //los comentarios son para arreglar un eslint que da error por falsopositivo no afectan dejenlos alli
     useEffect(() => {
+        // Carga inicial de datos (fetch-on-mount); falso positivo de la regla.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         loadCategories();
-    }, []);
+    }, [loadCategories]);
 
     const handleSubmit = async (form) => {
         try {
@@ -77,7 +79,7 @@ function Categories() {
                     Gestión de Categorías
                 </h1>
                 <Button
-                    className="!w-auto"
+                    className="w-auto!"
                     onClick={() => {
                         setEditing(null);
                         setShowForm(true);
