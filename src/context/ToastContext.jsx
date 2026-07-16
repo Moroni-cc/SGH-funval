@@ -1,8 +1,8 @@
 import { createContext, useCallback, useState } from "react";
 
-export const ToastContext = createContext(null);
+const ToastContext = createContext(null);
 
-export function ToastProvider({ children }) {
+function ToastProvider({ children }) {
     const [toasts, setToasts] = useState([]);
 
     const showToast = useCallback((message, type = "success") => {
@@ -19,3 +19,5 @@ export function ToastProvider({ children }) {
         </ToastContext.Provider>
     );
 }
+
+export { ToastContext, ToastProvider };
