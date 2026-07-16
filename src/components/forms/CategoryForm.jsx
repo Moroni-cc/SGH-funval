@@ -1,48 +1,61 @@
-{/*Apartado de las categorias*/}
+import { useState } from "react";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
 
-function CategoryForm() {
+function CategoryForm({ initialData = null, onSubmit, onCancel, loading = false }) {
+  const [form, setForm] = useState({
+    name: initialData?.name ?? "",
+    description: initialData?.description ?? "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newErrors = {};
+    if (!form.name.trim()) newErrors.name = "El nombre es obligatorio.";
+    if (!form.description.trim()) newErrors.description = "La descripción es obligatoria.";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
+    onSubmit(form);
+  };
+
   return (
-    <div>
-      <label
-        htmlFor="categoriaServicio"
-        className="mb-2 block text-sm font-semibold text-[#1F2937]"
-      >
-        Categoría de servicio
-        <span className="ml-1 text-red-500">*</span>
-      </label>
-
-      <select
-        id="categoriaServicio"
-        name="categoriaServicio"
-        defaultValue=""
-        required
-        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#1F2937] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-blue-100"
-      >
-        <option value="" disabled>
-          Seleccionar categoría
-        </option>
-
-        <option value="tutoria-companeros">
-          Tutoría a compañeros
-        </option>
-
-        <option value="apoyo-comunitario">
-          Apoyo comunitario
-        </option>
-
-        <option value="mentoria-estudiantes">
-          Mentoría a nuevos estudiantes
-        </option>
-
-        <option value="eventos-institucionales">
-          Eventos institucionales
-        </option>
-
-        <option value="traduccion-materiales">
-          Traducción de materiales
-        </option>
-      </select>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Input
+        label="Nombre"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        error={errors.name}
+        placeholder="Ej. Tutorías"
+      />
+      <Input
+        label="Descripción"
+        name="description"
+        value={form.description}
+        onChange={handleChange}
+        error={errors.description}
+        placeholder="Ej. Horas de servicio por tutorías"
+      />
+      <div className="flex gap-2">
+        <Button type="submit" loading={loading}>
+          {initialData ? "Guardar cambios" : "Crear categoría"}
+        </Button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
   );
 }
 
