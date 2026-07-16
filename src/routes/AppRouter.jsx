@@ -14,6 +14,7 @@ import PublicRoute from './PublicRoute'
 import RoleRoute from './RolRoute'
 import { ROLES } from '../utils/constants'
 import DashboardLayout from '../layouts/DashboardLayout'
+import Countries from "../pages/admin/Countries";
 
 function AppRouter() {
   return (
@@ -40,6 +41,7 @@ function AppRouter() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/courses" element={<Courses />} />
             <Route path="/admin/categories" element={<Categories />} />
+            <Route path="/admin/countries" element={<Countries />} />
           </Route>
 
           {/* SOLO ESTUDIANTES */}
