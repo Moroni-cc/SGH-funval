@@ -7,7 +7,6 @@ import { useAuth } from "../../hooks/useAuth";
 export default function Profile() {
     const { user } = useAuth();
     
-    // --- ESTADOS PARA PERFIL (CONECTADOS A LA API) ---
     const [formData, setFormData] = useState({
         full_name: "", 
         email: "", 
@@ -20,7 +19,6 @@ export default function Profile() {
     const [savingProfile, setSavingProfile] = useState(false);
     const [profileToast, setProfileToast] = useState(null);
 
-    // --- ESTADOS PARA CONTRASEÑA ---
     const [passwords, setPasswords] = useState({
         currentPassword: "", 
         newPassword: "", 
@@ -29,7 +27,7 @@ export default function Profile() {
     const [savingPassword, setSavingPassword] = useState(false);
     const [passwordToast, setPasswordToast] = useState(null);
 
-    // --- CARGA INICIAL DESDE LA API ---
+    // Carga inicial
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -60,7 +58,7 @@ export default function Profile() {
     const handleProfileChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
     const handlePasswordChange = (e) => setPasswords({ ...passwords, [e.target.name]: e.target.value });
 
-    // --- SUBMITS ---
+    // SUBMIT DEL PERFIL (AQUÍ ESTÁ LA MAGIA QUE SOLUCIONA TU PROBLEMA)
     const handleProfileSubmit = async (e) => {
         e.preventDefault();
         setProfileToast(null);
@@ -72,16 +70,23 @@ export default function Profile() {
 
         setSavingProfile(true);
         try {
-            await api.patch("/profile/me", formData);
+            // Convertimos el country_id de texto a número matematico para que el backend lo acepte
+            const dataToSend = {
+                ...formData,
+                country_id: formData.country_id ? parseInt(formData.country_id, 10) : null
+            };
+
+            await api.patch("/profile/me", dataToSend);
             setProfileToast({ type: "success", text: "Cambios guardados correctamente." });
         } catch (error) {
-            console.error(error);
-            setProfileToast({ type: "error", text: "Error al actualizar el perfil." });
+            console.error("Detalle del error:", error);
+            setProfileToast({ type: "error", text: "Error al actualizar el perfil. Verifica los datos." });
         } finally {
             setSavingProfile(false);
         }
     };
 
+    // SUBMIT DE LA CONTRASEÑA
     const handlePasswordSubmit = async (e) => {
         e.preventDefault();
         setPasswordToast(null);
@@ -130,7 +135,6 @@ export default function Profile() {
     return (
         <div className="w-full max-w-5xl mx-auto p-4 md:p-8 space-y-6 bg-[#f8fafc] min-h-screen">
             
-            {/* TARJETA 1: ENCABEZADO (Igual a la imagen) */}
             <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col md:flex-row items-center gap-6 justify-between border border-gray-100">
                 <div className="flex items-center gap-5">
                     <div className="w-16 h-16 rounded-full bg-[#1e293b] text-white flex items-center justify-center text-xl font-bold tracking-wide">
@@ -148,7 +152,6 @@ export default function Profile() {
                 </div>
             </div>
 
-            {/* TARJETA 2: INFORMACIÓN PERSONAL (Cuadrícula Horizontal) */}
             <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">Información personal</h3>
                 
@@ -181,7 +184,6 @@ export default function Profile() {
                 </form>
             </div>
 
-            {/* TARJETA 3: SEGURIDAD (Cuadrícula Horizontal) */}
             <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">Seguridad</h3>
                 

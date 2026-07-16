@@ -18,4 +18,11 @@ export const ENDPOINTS = {
         LIST: "/countries/",
         DETAIL: (id) => `/countries/${id}`,
     },
+        REPORTS: {
+        LIST: "/reports/",
+        DETAIL: (id) => `/reports/${id}`,
+    },
+    ENUMS: {
+        REPORT_STATUSES: "/enums/report-statuses",
+    },
 };
