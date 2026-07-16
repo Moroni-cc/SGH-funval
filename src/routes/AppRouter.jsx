@@ -10,7 +10,6 @@ import Countries from "../pages/admin/Countries";
 
 // Componentes importados desde la rama JJ/Logout-loadingFile
 import HourForm from '../components/forms/HourForm';
-import ChangePassword from "../pages/profile/ChangePassword";
 
 // Importación corregida de tu perfil (con P mayúscula para evitar errores en Vercel)
 import Profile from "../pages/profile/Perfil";
@@ -57,7 +56,6 @@ function AppRouter() {
           {/* Accesible para ADMIN y STUDENT */}
           <Route element={<RoleRoute allowedRoles={[ROLES.ADMIN, ROLES.STUDENT]} />}>
             <Route path="/perfil" element={<Profile />} />
-            <Route path="/perfil/cambiar-password" element={<ChangePassword />} />
           </Route>
 
         </Route>
