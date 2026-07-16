@@ -10,6 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 import RoleRoute from "./RolRoute";
 import { ROLES } from "../utils/constants";
+import Categories from "../pages/admin/Categories";
 
 function AppRouter() {
   return (
@@ -26,8 +27,9 @@ function AppRouter() {
       <Route element={<ProtectedRoute />}>
         
         {/* Solo Admin */}
-        <Route element={<RoleRoute allowedRoles={[ROLES.ADMIN]}/>}>
+       <Route element={<RoleRoute allowedRoles={[ROLES.ADMIN]}/>}>
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/categories" element={<Categories />} />
         </Route>
 
         {/* Solo Student */}
