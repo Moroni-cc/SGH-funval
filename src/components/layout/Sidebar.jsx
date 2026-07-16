@@ -10,7 +10,6 @@ import {
   FilePlus2,
   History,
   LogOut,
-  BookOpen,
 } from 'lucide-react'
 
 function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
@@ -135,18 +134,9 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
           </ul>
         </nav>
         <div className=" border-t border-gray-500 px-2 py-4">
-          {/* Solo desktop */}
-          <div className="hidden lg:block mb-4">
-            <NavLink to="/guide" className="flex items-center gap-3 px-4 py-2 text-white">
-              <BookOpen size={20} />
-              <span>Guía visual</span>
-            </NavLink>
-          </div>
-
-          {/* Siempre visible */}
           <button
             onClick={logout}
-            className="flex w-full items-center gap-3 px-4 py-2 text-white"
+            className="flex w-full items-center gap-3 px-4 py-2 text-white cursor-pointer"
           >
             <LogOut size={20} />
             <span>Cerrar sesión</span>
