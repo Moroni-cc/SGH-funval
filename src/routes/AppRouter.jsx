@@ -11,6 +11,7 @@ import PublicRoute from "./PublicRoute";
 import RoleRoute from "./RolRoute";
 import { ROLES } from "../utils/constants";
 import Categories from "../pages/admin/Categories";
+import Courses from "../pages/admin/Courses";
 
 function AppRouter() {
   return (
@@ -29,6 +30,7 @@ function AppRouter() {
         {/* Solo Admin */}
        <Route element={<RoleRoute allowedRoles={[ROLES.ADMIN]}/>}>
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/courses" element={<Courses />} />
           <Route path="/admin/categories" element={<Categories />} />
         </Route>
 
