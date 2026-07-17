@@ -92,14 +92,18 @@ function Reports() {
     };
 
     return (
-        <div className="mx-auto max-w-6xl p-6">
-            <h1 className="mb-6 text-2xl font-semibold text-gray-900">
-                Listado de Reportes
+        <div className="mx-auto w-full max-w-5xl">
+            <div className="flex justify-between items-center">
+            <div className="text-left">
+            <h1 className="text-2xl font-bold text-gray-900">
+              Revision de solicitudes
             </h1>
+            <p className="text-sm text-slate-400 flex justify-start mb-6">{reports.length} solicitudes esperando tu revision</p>
+            </div>
 
-            <div className="mb-6 flex flex-wrap gap-4">
+            <div className=" mb-6 flex flex-wrap justify-end gap-4">
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="status" className="text-sm font-medium text-gray-700">
+                    <label htmlFor="status" className="text-sm font-bold text-gray-600">
                         Estado
                     </label>
                     <select
@@ -117,7 +121,10 @@ function Reports() {
                     </select>
                 </div>
 
-                <div className="flex flex-col gap-1">
+
+            </div>
+
+                <div className="hidden  flex-col gap-1">
                     <label htmlFor="student" className="text-sm font-medium text-gray-700">
                         Estudiante
                     </label>
