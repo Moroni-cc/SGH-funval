@@ -25,4 +25,8 @@ export const ENDPOINTS = {
     ENUMS: {
         REPORT_STATUSES: "/enums/report-statuses",
     },
+        USERS: {
+        LIST: "/users/",
+        DETAIL: (id) => `/users/${id}`,
+    },
 };
