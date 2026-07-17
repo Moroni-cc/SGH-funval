@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getReport, updateReport } from "../../services/reports.service";
+import {  updateReport } from "../../services/reports.service";
 import { getCategories } from "../../services/categories.service";
 import { useToast } from "../../hooks/useToast";
 import PdfUploadField from "../../components/forms/PdfUploadField";
@@ -28,10 +28,17 @@ function EditReport() {
 
     const loadData = useCallback(async () => {
         try {
-            const [report, categoryList] = await Promise.all([
-                getReport(id),
+            const [data, categoryList] = await Promise.all([
+                getReports({ pageSize: 100 }),
                 getCategories(),
             ]);
+            const report = data.items.find((r) => String(r.id) === String(id));
+
+            if (!report) {
+                setBlocked(true);
+                showToast("El reporte no existe", "error");
+                return;
+            }
 
             if (report.status !== "PENDING") {
                 setBlocked(true);
