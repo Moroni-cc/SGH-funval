@@ -75,7 +75,7 @@ function Categories() {
     return (
         <div className="mx-auto max-w-3xl p-6">
             <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-[26px] font-extrabold text-[#16213E]">
+                <h1 className="text-3xl font-bold tracking-tight text-slate-800">
                     Gestión de Categorías
                 </h1>
                 <Button
@@ -107,14 +107,16 @@ function Categories() {
             {loading ? (
                 <p className="text-sm text-[#64748B]">Cargando...</p>
             ) : (
-                <CategoriesTable
-                    categories={categories}
-                    onEdit={(cat) => {
-                        setEditing(cat);
-                        setShowForm(true);
-                    }}
-                    onDelete={(cat) => setDeleting(cat)}
-                />
+                <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-6 py-2 shadow-sm">
+                    <CategoriesTable
+                        categories={categories}
+                        onEdit={(cat) => {
+                            setEditing(cat);
+                            setShowForm(true);
+                        }}
+                        onDelete={(cat) => setDeleting(cat)}
+                    />
+                </div>
             )}
 
             {deleting && (
