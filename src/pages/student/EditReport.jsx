@@ -29,7 +29,6 @@ function EditReport() {
     const loadData = useCallback(async () => {
         try {
             const [data, categoryList] = await Promise.all([
-                getReports({ pageSize: 100 }),
                 getCategories(),
             ]);
             const report = data.items.find((r) => String(r.id) === String(id));

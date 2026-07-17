@@ -1,6 +1,17 @@
 import Badge from "../ui/Badge";
+import { getReportEvidence } from "../../services/reports.service";
 
 function MyReportsTable({ reports, onEdit }) {
+    const handleVerEvidencia = async (reportId) => {
+        try {
+            const blob = await getReportEvidence(reportId);
+            const url = URL.createObjectURL(blob);
+            window.open(url, "_blank");
+        } catch {
+            window.open(`/api/v1/reports/${reportId}/evidence`, "_blank");
+        }
+    };
+
     if (reports.length === 0) {
         return (
             <p className="p-6 text-sm text-slate-500">
@@ -41,14 +52,22 @@ function MyReportsTable({ reports, onEdit }) {
                             {new Date(report.created_at).toLocaleDateString()}
                         </td>
                         <td className="py-3">
-                            {report.status === "PENDING" && (
+                            <div className="flex gap-3">
+                                {report.status === "PENDING" && (
+                                    <button
+                                        onClick={() => onEdit(report)}
+                                        className="font-semibold text-blue-600 hover:underline"
+                                    >
+                                        Editar
+                                    </button>
+                                )}
                                 <button
-                                    onClick={() => onEdit(report)}
-                                    className="font-semibold text-blue-600 hover:underline"
+                                    onClick={() => handleVerEvidencia(report.id)}
+                                    className="font-semibold text-slate-600 hover:underline"
                                 >
-                                    Editar
+                                    Ver evidencia
                                 </button>
-                            )}
+                            </div>
                         </td>
                     </tr>
                 ))}

@@ -18,10 +18,13 @@ export const ENDPOINTS = {
         LIST: "/countries/",
         DETAIL: (id) => `/countries/${id}`,
     },
-        REPORTS: {
-        LIST: "/reports/",
-        DETAIL: (id) => `/reports/${id}`,
-    },
+    
+    REPORTS: {
+    LIST: "/reports/",
+    DETAIL: (id) => `/reports/${id}`,
+    EVIDENCE: (id) => `/reports/${id}/evidence`,
+    EVIDENCE_STREAM: (id) => `/reports/${id}/evidence/stream`,
+},
     ENUMS: {
         REPORT_STATUSES: "/enums/report-statuses",
     },
@@ -32,4 +35,5 @@ export const ENDPOINTS = {
      DASHBOARD: {
         STATS: "/dashboard/stats",
     },
+    
 };
