@@ -29,4 +29,7 @@ export const ENDPOINTS = {
         LIST: "/users/",
         DETAIL: (id) => `/users/${id}`,
     },
+     DASHBOARD: {
+        STATS: "/dashboard/stats",
+    },
 };

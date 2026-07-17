@@ -9,6 +9,8 @@ import Courses from '../pages/admin/Courses';
 import Countries from "../pages/admin/Countries";
 import Reports from '../pages/admin/Reports'
 import Users from '../pages/admin/Users';
+import Statistics from "../pages/admin/Statistics";
+
 
 // Componentes importados desde la rama JJ/Logout-loadingFile
 import HourForm from '../components/forms/HourForm';
@@ -47,6 +49,7 @@ function AppRouter() {
             <Route path="/admin/categories" element={<Categories />} />
             <Route path="/admin/countries" element={<Countries />} />
             <Route path="/admin/courses" element={<Courses />} />
+            <Route path="/admin/statistics" element={<Statistics />} />
             <Route path="/admin/reports" element={<Reports />} />
             <Route path="/admin/users" element={<Users />} />
           </Route>
