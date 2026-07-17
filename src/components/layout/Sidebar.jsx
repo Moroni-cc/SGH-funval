@@ -23,6 +23,8 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
       name: 'Panel general',
       path: '/admin',
       icon: LayoutDashboard,
+      end: true,
+       
     },
     {
       name: 'Revisión de solicitudes',
@@ -125,11 +127,14 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             {links.slice(1).map((link) => (
               <li key={link.path}>
                 <NavLink
-                  to={link.path}
-                  onClick={() => setIsSidebarOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 rounded-lg px-4 py-3 text-white ${
-                      isActive ? 'bg-white/15 font-semibold' : ''
+                    to={link.path}
+  end={link.end}
+  onClick={() => setIsSidebarOpen(false)}
+  className={({ isActive }) =>
+    `flex items-center gap-3 rounded-lg px-4 py-3 text-white transition-all duration-200 ${
+      isActive
+        ? 'bg-white/15 font-semibold shadow-inner'
+        : 'hover:bg-white/10'
                     }`
                   }
                 >
