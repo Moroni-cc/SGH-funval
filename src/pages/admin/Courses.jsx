@@ -74,7 +74,7 @@ function Courses() {
     return (
         <div className="mx-auto max-w-4xl p-6">
             <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-2xl font-semibold text-gray-900">
+                <h1 className="text-[26px] font-extrabold text-[#16213E]">
                     Gestión de Cursos
                 </h1>
                 <Button
@@ -89,7 +89,7 @@ function Courses() {
             </div>
 
             {showForm && (
-                <div className="mb-6 rounded-lg border border-gray-200 p-4">
+                <div className="mb-6 rounded-[14px] border border-[#E7ECF3] bg-white p-6 shadow-[0_1px_2px_rgba(15,29,69,0.04)]">
                     <CourseForm
                         key={editing?.id ?? "new"}
                         initialData={editing}
@@ -104,7 +104,7 @@ function Courses() {
             )}
 
             {loading ? (
-                <p className="text-sm text-gray-500">Cargando...</p>
+                <p className="text-sm text-[#64748B]">Cargando...</p>
             ) : (
                 <CoursesTable
                     courses={courses}

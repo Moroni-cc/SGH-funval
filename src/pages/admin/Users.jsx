@@ -82,7 +82,7 @@ function Users() {
   return (
     <div className="mx-auto max-w-5xl p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-gray-900">
+        <h1 className="text-3xl font-bold tracking-tight text-slate-800">
           Listado de Usuarios
         </h1>
         <Button className="w-auto!" onClick={() => setShowForm(true)}>
@@ -91,7 +91,7 @@ function Users() {
       </div>
 
       {showForm && (
-        <div className="mb-6 rounded-lg border border-gray-200 p-4">
+        <div className="mb-6 rounded-[14px] border border-[#E7ECF3] bg-white p-6 shadow-[0_1px_2px_rgba(15,29,69,0.04)]">
           <UserForm
             loading={saving}
             onSubmit={handleCreate}
@@ -101,10 +101,10 @@ function Users() {
       )}
 
       {loading ? (
-        <p className="text-sm text-gray-500">Cargando...</p>
+        <p className="text-sm text-[#64748B]">Cargando...</p>
       ) : (
         <>
-          <div className="overflow-hidden rounded-[14px] border border-[#E7ECF3] bg-white px-6 py-2 shadow-[0_1px_2px_rgba(15,29,69,0.04)]">
+          <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-6 py-2 shadow-sm">
             <UsersTable users={users} onDelete={(user) => setDeleting(user)} />
           </div>
           <div className="mt-6">
