@@ -23,6 +23,7 @@ export const ENDPOINTS = {
     LIST: "/reports/",
     DETAIL: (id) => `/reports/${id}`,
     EVIDENCE: (id) => `/reports/${id}/evidence`,
+    REVIEW: (id) => `/reports/${id}/review`,
     EVIDENCE_STREAM: (id) => `/reports/${id}/evidence/stream`,
 },
     ENUMS: {

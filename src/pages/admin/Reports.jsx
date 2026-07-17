@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { getReports, getReportStatuses } from "../../services/reports.service";
+import { getReports, getReportStatuses, reviewReport } from "../../services/reports.service";
 import { usePagination } from "../../hooks/usePagination";
 import { useToast } from "../../hooks/useToast";
 import ReportsTable from "../../components/tables/ReportsTable";
@@ -87,8 +87,42 @@ function Reports() {
         goToPage(1);
     };
 
-    const handleReview = (report) => {
-        console.log("revisar", report);
+    const handleReview = async (report, action, comment) => {
+        let approved_hours;
+        if (action === "APPROVED") {
+            approved_hours = report.hours_spent;
+        } else if (action === "REJECTED") {
+            approved_hours = 0;
+        } else {
+            const value = window.prompt(
+                `Horas a aprobar (entre 1 y ${report.hours_spent - 1}):`
+            );
+            approved_hours = Number(value);
+            if (
+                !value ||
+                Number.isNaN(approved_hours) ||
+                approved_hours <= 0 ||
+                approved_hours >= report.hours_spent
+            ) {
+                showToast("Cantidad de horas inválida", "error");
+                return;
+            }
+        }
+
+        try {
+            await reviewReport(report.id, {
+                approved_hours,
+                reviewer_notes: comment,
+            });
+            showToast("Reporte revisado con éxito", "success");
+            loadReports();
+        } catch (error) {
+            if (error.response?.status === 422) {
+                showToast("Datos inválidos en la revisión", "error");
+            } else {
+                showToast("Error al revisar el reporte", "error");
+            }
+        }
     };
 
     return (

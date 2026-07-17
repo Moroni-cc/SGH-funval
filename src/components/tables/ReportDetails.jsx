@@ -57,11 +57,9 @@ function ReportDetails({ report, onReview }) {
     Busca la URL del PDF usando diferentes
     nombres posibles.
   */
-  const evidenceUrl =
-    report.web_view_link ??
-    report.evidence_url ??
-    report.pdf_url ??
-    null;
+  const evidenceUrl = report.web_view_link
+    ? `/api/v1/reports/${report.id}/evidence/stream`
+    : null;
 
   const evidenceName =
     report.evidence_name ??
