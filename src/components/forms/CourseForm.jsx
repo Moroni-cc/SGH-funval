@@ -2,43 +2,55 @@
 
 function CourseForm() {
   return (
-    <div>
-      <label
-        htmlFor="curso"
-        className="mb-2 block text-sm font-semibold text-[#1F2937]"
-      >
-        Curso
-        <span className="ml-1 text-red-500">*</span>
-      </label>
-
-      <select
-        id="curso"
-        name="curso"
-        defaultValue=""
-        required
-        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#1F2937] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-blue-100"
-      >
-        <option value="" disabled>
-          Seleccionar curso
-        </option>
-
-        <option value="desarrollo-software">
-          Desarrollo de Software
-        </option>
-
-        <option value="soporte-tecnico">
-          Soporte Técnico IT
-        </option>
-
-        <option value="ingles-trabajo">
-          Inglés para el Trabajo
-        </option>
-
-        <option value="electricidad-industrial">
-          Electricidad Industrial
-        </option>
-      </select>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Input
+        label="Nombre"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        error={errors.name}
+        placeholder="Ej. Desarrollo Web"
+      />
+      <Input
+        label="Duración (semanas)"
+        name="duration"
+        type="number"
+        value={form.duration}
+        onChange={handleChange}
+        error={errors.duration}
+        placeholder="Ej. 24"
+      />
+      <Input
+        label="Horas de servicio requeridas"
+        name="required_service_hours"
+        type="number"
+        value={form.required_service_hours}
+        onChange={handleChange}
+        error={errors.required_service_hours}
+        placeholder="Ej. 40"
+      />
+      <Input
+        label="Precio"
+        name="price"
+        type="number"
+        value={form.price}
+        onChange={handleChange}
+        error={errors.price}
+        placeholder="Ej. 100"
+      />
+      <div className="flex gap-2">
+        <Button type="submit" loading={loading}>
+          {initialData ? "Guardar cambios" : "Crear curso"}
+        </Button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="w-full rounded-[10px] border border-[#CBD5E1] bg-white px-5 py-[11px] text-sm font-semibold text-[#334155] transition-colors hover:bg-[#F1F5F9]"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
   );
 }
 
