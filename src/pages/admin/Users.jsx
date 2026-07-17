@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import { getUsers, deleteUser } from "../../services/users.service";
+import { getUsers, createUser, deleteUser } from "../../services/users.service";
 import { usePagination } from "../../hooks/usePagination";
 import { useToast } from "../../hooks/useToast";
 import UsersTable from "../../components/tables/UsersTable";
 import DeleteModal from "../../components/modals/DeleteModal";
 import Pagination from "../../components/ui/Pagination";
 import Button from "../../components/ui/Button";
+import UserForm from "../../components/forms/UserForm";
 
 const PAGE_SIZE = 10;
+
 
 function Users() {
     const [users, setUsers] = useState([]);
@@ -16,6 +18,7 @@ function Users() {
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(null);
     const { showToast } = useToast();
+    const [showForm, setShowForm] = useState(false);
 
     const { currentPage, totalPages, goToPage } = usePagination({
         totalItems: total,
@@ -39,6 +42,26 @@ function Users() {
         loadUsers();
     }, [loadUsers]);
 
+         const handleCreate = async (form) => {
+        try {
+            setSaving(true);
+            await createUser(form);
+            showToast("Usuario creado con éxito", "success");
+            setShowForm(false);
+            await loadUsers();
+        } catch (error) {
+            if (error.response?.status === 409) {
+                showToast("El correo o documento ya existe", "error");
+            } else if (error.response?.status === 422) {
+                showToast("Datos inválidos: revisa los campos", "error");
+            } else {
+                showToast("Error al crear el usuario", "error");
+            }
+        } finally {
+            setSaving(false);
+        }
+    };
+
     const handleConfirmDelete = async () => {
         try {
             setSaving(true);
@@ -57,16 +80,27 @@ function Users() {
         }
     };
 
+   
     return (
         <div className="mx-auto max-w-5xl p-6">
             <div className="mb-6 flex items-center justify-between">
                 <h1 className="text-2xl font-semibold text-gray-900">
                     Listado de Usuarios
                 </h1>
-                <Button className="w-auto!" onClick={() => showToast("Próximamente", "info")}>
+                <Button className="w-auto!" onClick={() => setShowForm(true)}>
                     Nuevo usuario
                 </Button>
             </div>
+
+            {showForm && (
+                <div className="mb-6 rounded-lg border border-gray-200 p-4">
+                    <UserForm
+                        loading={saving}
+                        onSubmit={handleCreate}
+                        onCancel={() => setShowForm(false)}
+                    />
+                </div>
+            )}
 
             {loading ? (
                 <p className="text-sm text-gray-500">Cargando...</p>
