@@ -25,4 +25,5 @@ export const ENDPOINTS = {
     ENUMS: {
         REPORT_STATUSES: "/enums/report-statuses",
     },
+    
 };
