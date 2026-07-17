@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {  updateReport } from "../../services/reports.service";
+import { getReports, updateReport } from "../../services/reports.service";
+import { useAuth } from "../../hooks/useAuth";
 import { getCategories } from "../../services/categories.service";
 import { useToast } from "../../hooks/useToast";
 import PdfUploadField from "../../components/forms/PdfUploadField";
@@ -9,6 +10,7 @@ function EditReport() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { showToast } = useToast();
+    const { user } = useAuth();
 
     const [form, setForm] = useState({
         hours_spent: "",
@@ -29,6 +31,7 @@ function EditReport() {
     const loadData = useCallback(async () => {
         try {
             const [data, categoryList] = await Promise.all([
+                getReports({ studentId: user.id, pageSize: 100 }),
                 getCategories(),
             ]);
             const report = data.items.find((r) => String(r.id) === String(id));
@@ -64,7 +67,7 @@ function EditReport() {
         } finally {
             setLoading(false);
         }
-    }, [id, showToast]);
+    }, [id, showToast, user.id]);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
