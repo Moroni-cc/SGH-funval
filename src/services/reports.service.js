@@ -16,6 +16,19 @@ export async function getReportStatuses() {
 }
 
 
+export async function createReport({ hours_spent, category_id, description, evidence }) {
+    const formData = new FormData();
+    formData.append("hours_spent", hours_spent);
+    formData.append("category_id", category_id);
+    formData.append("description", description);
+    formData.append("evidence", evidence);
+
+    const { data } = await api.post(ENDPOINTS.REPORTS.LIST, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
+    return data;
+}
+
 export async function updateReport(id, { hours_spent, category_id, description, file }) {
     if (file) {
         const formData = new FormData();
