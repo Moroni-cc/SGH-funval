@@ -1,7 +1,30 @@
-
-{/*Apartado de las categorias*/}
+import { useEffect, useState } from "react";
+import { getCategories } from "../../services/categories.service";
 
 function CategoryForm() {
+  const [categorias, setCategorias] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let activo = true;
+
+    getCategories()
+      .then((data) => {
+        if (activo) setCategorias(data);
+      })
+      .catch(() => {
+        if (activo) setError("No se pudieron cargar las categorías.");
+      })
+      .finally(() => {
+        if (activo) setLoading(false);
+      });
+
+    return () => {
+      activo = false;
+    };
+  }, []);
+
   return (
     <div>
       <label
@@ -17,32 +40,21 @@ function CategoryForm() {
         name="categoriaServicio"
         defaultValue=""
         required
-        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#1F2937] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-blue-100"
+        disabled={loading}
+        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#1F2937] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-blue-100 disabled:opacity-60"
       >
         <option value="" disabled>
-          Seleccionar categoría
+          {loading ? "Cargando categorías..." : "Seleccionar categoría"}
         </option>
 
-        <option value="tutoria-companeros">
-          Tutoría a compañeros
-        </option>
-
-        <option value="apoyo-comunitario">
-          Apoyo comunitario
-        </option>
-
-        <option value="mentoria-estudiantes">
-          Mentoría a nuevos estudiantes
-        </option>
-
-        <option value="eventos-institucionales">
-          Eventos institucionales
-        </option>
-
-        <option value="traduccion-materiales">
-          Traducción de materiales
-        </option>
+        {categorias.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.name}
+          </option>
+        ))}
       </select>
+
+      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
     </div>
   );
 }

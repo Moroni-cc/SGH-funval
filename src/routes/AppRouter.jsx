@@ -13,7 +13,7 @@ import MyHours from "../pages/student/MyHours";
 import EditReport from "../pages/student/EditReport";
 
 // Componentes importados desde la rama JJ/Logout-loadingFile
-import HourForm from "../components/forms/HourForm";
+import RegisterHours from "../pages/student/RegisterHours";
 
 // Importación corregida de tu perfil (con P mayúscula para evitar errores en Vercel)
 import Profile from "../pages/profile/Perfil";
@@ -54,7 +54,7 @@ function AppRouter() {
           {/* Solo Student */}
           <Route element={<RoleRoute allowedRoles={[ROLES.STUDENT]} />}>
             <Route path="/student" element={<StudentDashboard />} />
-            <Route path="/student/new-report" element={<HourForm />} />
+            <Route path="/student/new-report" element={<RegisterHours />} />
           </Route>
           <Route path="/student/reports" element={<MyHours />} />
           <Route path="/student/reports/:id/edit" element={<EditReport />} />

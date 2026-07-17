@@ -6,8 +6,8 @@ import { ENDPOINTS } from "../api/endpoints";
  * de sesión (withCredentials), por lo que no se maneja token manualmente.
  */
 export async function login({ email, password }) {
-    const { data } = await api.post(ENDPOINTS.AUTH.LOGIN, { email, password });
-    return data;
+  const { data } = await api.post(ENDPOINTS.AUTH.LOGIN, { email, password });
+  return data;
 }
 
 /**
@@ -15,12 +15,12 @@ export async function login({ email, password }) {
  * usado tanto tras el login como para restaurar la sesión al recargar.
  */
 export async function getProfile() {
-    const { data } = await api.get(ENDPOINTS.PROFILE.ME);
-    console.log(data);
-    return data;
+  const { data } = await api.get(ENDPOINTS.PROFILE.ME);
+  console.log(data);
+  return data;
 }
 
 export async function logout() {
-    await api.post(ENDPOINTS.AUTH.LOGOUT);
+  await api.post(ENDPOINTS.AUTH.LOGOUT);
 }
 
