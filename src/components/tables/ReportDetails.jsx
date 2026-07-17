@@ -58,10 +58,9 @@ function ReportDetails({ report, onReview }) {
     nombres posibles.
   */
   const evidenceUrl =
+    report.web_view_link ??
     report.evidence_url ??
     report.pdf_url ??
-    report.file_url ??
-    report.document_url ??
     null;
 
   const evidenceName =
