@@ -1,61 +1,42 @@
-import Badge from "../ui/Badge";
+import { useState } from "react";
+import ReportsList from "./ReportsList";
+import ReportDetails from "./ReportDetails";
 
-function ReportsTable({ reports, onReview }) {
-    if (reports.length === 0) {
-        return (
-            <p className="text-sm text-gray-500">
-                No hay reportes que coincidan con los filtros.
-            </p>
-        );
-    }
+function ReportsTable({ reports = [], onReview }) {
+  const [selectedId, setSelectedId] = useState(null);
 
+  const selectedReport =
+    reports.find((report) => report.id === selectedId) ??
+    reports[0] ??
+    null;
+
+  const activeId = selectedReport?.id ?? null;
+
+  if (reports.length === 0) {
     return (
-        <table className="w-full text-left text-sm">
-            <thead>
-                <tr className="border-b text-gray-500">
-                    <th className="py-2 pr-4">Estudiante</th>
-                    <th className="py-2 pr-4">Categoría</th>
-                    <th className="py-2 pr-4">Horas reportadas</th>
-                    <th className="py-2 pr-4">Horas aprobadas</th>
-                    <th className="py-2 pr-4">Estado</th>
-                    <th className="py-2 pr-4">Fecha</th>
-                    <th className="py-2">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {reports.map((report) => (
-                    <tr key={report.id} className="border-b">
-                        <td className="py-2 pr-4 font-medium text-gray-900">
-                            {report.student?.full_name ?? "—"}
-                        </td>
-                        <td className="py-2 pr-4 text-gray-600">
-                            {report.category?.name ?? "—"}
-                        </td>
-                        <td className="py-2 pr-4 text-gray-600">{report.hours_spent}</td>
-                        <td className="py-2 pr-4 text-gray-600">
-                            {report.approved_hours ?? "—"}
-                        </td>
-                        <td className="py-2 pr-4">
-                            <Badge status={report.status} />
-                        </td>
-                        <td className="py-2 pr-4 text-gray-600">
-                            {new Date(report.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="py-2">
-                            {report.status === "PENDING" && (
-                                <button
-                                    onClick={() => onReview(report)}
-                                    className="text-blue-600 hover:underline"
-                                >
-                                    Revisar
-                                </button>
-                            )}
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+      <div className="rounded-xl border bg-white p-8 text-center">
+        <p className="text-sm text-gray-500">
+          No hay reportes disponibles.
+        </p>
+      </div>
     );
+  }
+
+  return (
+    <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+      <ReportsList
+        reports={reports}
+        selectedId={activeId}
+        onSelect={setSelectedId}
+      />
+
+      <ReportDetails
+        key={activeId}
+        report={selectedReport}
+        onReview={onReview}
+      />
+    </div>
+  );
 }
 
 export default ReportsTable;
