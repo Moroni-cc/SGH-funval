@@ -106,7 +106,9 @@ function Users() {
                 <p className="text-sm text-gray-500">Cargando...</p>
             ) : (
                 <>
-                    <UsersTable users={users} onDelete={(user) => setDeleting(user)} />
+                    <div className="overflow-hidden rounded-[14px] border border-[#E7ECF3] bg-white px-6 py-2 shadow-[0_1px_2px_rgba(15,29,69,0.04)]">
+    <UsersTable users={users} onDelete={(user) => setDeleting(user)} />
+</div>
                     <div className="mt-6">
                         <Pagination
                             currentPage={currentPage}
