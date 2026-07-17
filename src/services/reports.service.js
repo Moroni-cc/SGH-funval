@@ -15,6 +15,12 @@ export async function getReportStatuses() {
     return data;
 }
 
+export async function getReportEvidence(id) {
+    const { data } = await api.get(ENDPOINTS.REPORTS.EVIDENCE_STREAM(id), {
+        responseType: "blob",
+    });
+    return data;
+}
 
 export async function createReport({ hours_spent, category_id, description, evidence }) {
     const formData = new FormData();
