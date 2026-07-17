@@ -82,7 +82,7 @@ function Countries() {
     return (
         <div className="mx-auto max-w-3xl p-6">
             <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-2xl font-semibold text-gray-900">
+                <h1 className="text-3xl font-bold tracking-tight text-slate-800">
                     Gestión de Países
                 </h1>
                 <Button
@@ -97,7 +97,7 @@ function Countries() {
             </div>
 
             {showForm && (
-                <div className="mb-6 rounded-lg border border-gray-200 p-4">
+                <div className="mb-6 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
                     <CountryForm
                         key={editing?.id ?? "new"}
                         initialData={editing}
@@ -112,16 +112,18 @@ function Countries() {
             )}
 
             {loading ? (
-                <p className="text-sm text-gray-500">Cargando...</p>
+                <p className="text-sm text-[#64748B]">Cargando...</p>
             ) : (
-                <CountriesTable
-                    countries={countries}
-                    onEdit={(country) => {
-                        setEditing(country);
-                        setShowForm(true);
-                    }}
-                    onDelete={(country) => setDeleting(country)}
-                />
+                                <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-6 py-2 shadow-sm">
+                    <CountriesTable
+                        countries={countries}
+                        onEdit={(country) => {
+                            setEditing(country);
+                            setShowForm(true);
+                        }}
+                        onDelete={(country) => setDeleting(country)}
+                    />
+                </div>
             )}
 
             {deleting && (

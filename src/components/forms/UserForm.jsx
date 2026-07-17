@@ -118,7 +118,7 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
             />
 
             <div className="flex flex-col gap-1">
-                <label htmlFor="role" className="text-sm font-medium text-gray-700">
+                <label htmlFor="role" className="text-[13px] font-semibold text-[#334155]">
                     Rol
                 </label>
                 <select
@@ -126,7 +126,7 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
                     name="role"
                     value={form.role}
                     onChange={handleChange}
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full rounded-[10px] border border-[#CBD5E1] px-3.5 py-[11px] text-sm text-[#16213E] outline-none transition-colors focus:ring-2 focus:ring-[#2E7CF6]"
                 >
                     <option value={ROLES.STUDENT}>Estudiante</option>
                     <option value={ROLES.ADMIN}>Administrador</option>
@@ -134,7 +134,7 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
             </div>
 
             <div className="flex flex-col gap-1">
-                <label htmlFor="country_id" className="text-sm font-medium text-gray-700">
+                <label htmlFor="country_id" className="text-[13px] font-semibold text-[#334155]">
                     País
                 </label>
                 <select
@@ -142,8 +142,8 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
                     name="country_id"
                     value={form.country_id}
                     onChange={handleChange}
-                    className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.country_id ? "border-red-500" : "border-gray-300"
+                    className={`w-full rounded-[10px] border px-3.5 py-[11px] text-sm text-[#16213E] outline-none transition-colors focus:ring-2 focus:ring-[#2E7CF6] ${
+                        errors.country_id ? "border-[#C43D3D]" : "border-[#CBD5E1]"
                     }`}
                 >
                     <option value="">Selecciona un país</option>
@@ -154,12 +154,12 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
                     ))}
                 </select>
                 {errors.country_id && (
-                    <span className="text-xs text-red-600">{errors.country_id}</span>
+                    <span className="text-xs text-[#C43D3D]">{errors.country_id}</span>
                 )}
             </div>
 
             <div className="flex flex-col gap-1">
-                <label htmlFor="course_id" className="text-sm font-medium text-gray-700">
+                <label htmlFor="course_id" className="text-[13px] font-semibold text-[#334155]">
                     Curso
                 </label>
                 <select
@@ -167,8 +167,8 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
                     name="course_id"
                     value={form.course_id}
                     onChange={handleChange}
-                    className={`w-full rounded-md border px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-blue-500 ${
-                        errors.course_id ? "border-red-500" : "border-gray-300"
+                    className={`w-full rounded-[10px] border px-3.5 py-[11px] text-sm text-[#16213E] outline-none transition-colors focus:ring-2 focus:ring-[#2E7CF6] ${
+                        errors.course_id ? "border-[#C43D3D]" : "border-[#CBD5E1]"
                     }`}
                 >
                     <option value="">Selecciona un curso</option>
@@ -179,11 +179,11 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
                     ))}
                 </select>
                 {errors.course_id && (
-                    <span className="text-xs text-red-600">{errors.course_id}</span>
+                    <span className="text-xs text-[#C43D3D]">{errors.course_id}</span>
                 )}
             </div>
 
-            <p className="rounded-md bg-blue-50 px-3 py-2 text-xs text-blue-800">
+            <p className="rounded-[10px] bg-[#E3EBFD] px-3.5 py-2.5 text-xs font-semibold text-[#2B4FA8]">
                 La contraseña inicial del usuario será su número de documento.
             </p>
 
@@ -194,7 +194,7 @@ function UserForm({ onSubmit, onCancel, loading = false }) {
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="w-full rounded-[10px] border border-[#CBD5E1] bg-white px-5 py-[11px] text-sm font-semibold text-[#334155] transition-colors hover:bg-[#F1F5F9]"
                 >
                     Cancelar
                 </button>

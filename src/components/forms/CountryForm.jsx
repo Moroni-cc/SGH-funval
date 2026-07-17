@@ -54,7 +54,7 @@ function CountryForm({ initialData = null, onSubmit, onCancel, loading = false }
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="w-full rounded-[10px] border border-[#CBD5E1] bg-white px-5 py-[11px] text-sm font-semibold text-[#334155] transition-colors hover:bg-[#F1F5F9]"
                 >
                     Cancelar
                 </button>
