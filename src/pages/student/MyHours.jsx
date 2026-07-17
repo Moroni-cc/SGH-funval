@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getReports } from "../../services/reports.service";
 import { usePagination } from "../../hooks/usePagination";
 import { useToast } from "../../hooks/useToast";
+import { useAuth } from "../../hooks/useAuth";
 import MyReportsTable from "../../components/tables/MyReportsTable";
 import Pagination from "../../components/ui/Pagination";
 
@@ -13,8 +14,9 @@ function MyHours() {
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
     const { showToast } = useToast();
+    const { user } = useAuth();
     const navigate = useNavigate();
-
+    
     const { currentPage, totalPages, goToPage } = usePagination({
         totalItems: total,
         pageSize: PAGE_SIZE,
@@ -22,7 +24,7 @@ function MyHours() {
 
     const loadReports = useCallback(async () => {
         try {
-            const data = await getReports({ page: currentPage, pageSize: PAGE_SIZE });
+            const data = await getReports({ studentId: user.id, page: currentPage, pageSize: PAGE_SIZE });
             setReports(data.items);
             setTotal(data.total);
         } catch {
@@ -30,7 +32,7 @@ function MyHours() {
         } finally {
             setLoading(false);
         }
-    }, [currentPage, showToast]);
+    }, [currentPage, showToast, user.id]);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
