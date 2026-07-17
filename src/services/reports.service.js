@@ -15,10 +15,6 @@ export async function getReportStatuses() {
     return data;
 }
 
-export async function getReport(id) {
-    const { data } = await api.get(ENDPOINTS.REPORTS.DETAIL(id));
-    return data;
-}
 
 export async function updateReport(id, { hours_spent, category_id, description, file }) {
     if (file) {
