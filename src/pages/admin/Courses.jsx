@@ -74,7 +74,7 @@ function Courses() {
     return (
         <div className="mx-auto max-w-4xl p-6">
             <div className="mb-6 flex items-center justify-between">
-                <h1 className="text-[26px] font-extrabold text-[#16213E]">
+                <h1 className="text-3xl font-bold tracking-tight text-slate-800">
                     Gestión de Cursos
                 </h1>
                 <Button
@@ -89,7 +89,7 @@ function Courses() {
             </div>
 
             {showForm && (
-                <div className="mb-6 rounded-[14px] border border-[#E7ECF3] bg-white p-6 shadow-[0_1px_2px_rgba(15,29,69,0.04)]">
+                <div className="mb-6 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
                     <CourseForm
                         key={editing?.id ?? "new"}
                         initialData={editing}
@@ -106,14 +106,16 @@ function Courses() {
             {loading ? (
                 <p className="text-sm text-[#64748B]">Cargando...</p>
             ) : (
-                <CoursesTable
-                    courses={courses}
-                    onEdit={(course) => {
-                        setEditing(course);
-                        setShowForm(true);
-                    }}
-                    onDelete={(course) => setDeleting(course)}
-                />
+                                <div className="overflow-hidden rounded-2xl border border-slate-100 bg-white px-6 py-2 shadow-sm">
+                    <CoursesTable
+                        courses={courses}
+                        onEdit={(course) => {
+                            setEditing(course);
+                            setShowForm(true);
+                        }}
+                        onDelete={(course) => setDeleting(course)}
+                    />
+                </div>
             )}
 
             {deleting && (
