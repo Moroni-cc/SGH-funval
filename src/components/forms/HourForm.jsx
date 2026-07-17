@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import CategoryForm from "./CategoryForm";
-import CourseForm from "./CourseForm";
+import CategorySelect from "./CategorySelect";
+import CourseSelect from "./CourseSelect";
 import PdfUploadField from "./PdfUploadField";
 
 function HourForm({ onSubmit, onCancel }) {
@@ -178,9 +178,9 @@ function HourForm({ onSubmit, onCancel }) {
             />
           </div>
 
-          <CourseForm />
+          <CourseSelect />
 
-          <CategoryForm />
+          <CategorySelect />
 
           {/* Descripción */}
           <div className="md:col-span-2">
