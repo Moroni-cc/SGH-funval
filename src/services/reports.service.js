@@ -56,3 +56,11 @@ export async function updateReport(id, { hours_spent, category_id, description, 
     });
     return data;
 }
+
+export async function reviewReport(id, { approved_hours, reviewer_notes }) {
+    const { data } = await api.patch(ENDPOINTS.REPORTS.REVIEW(id), {
+        approved_hours,
+        reviewer_notes: reviewer_notes || null,
+    });
+    return data;
+}
