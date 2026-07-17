@@ -15,10 +15,7 @@ export async function getReportStatuses() {
     return data;
 }
 
-export async function getReport(id) {
-    const { data } = await api.get(ENDPOINTS.REPORTS.DETAIL(id));
-    return data;
-}
+
 export async function createReport({ hours_spent, category_id, description, evidence }) {
     const formData = new FormData();
     formData.append("hours_spent", hours_spent);
