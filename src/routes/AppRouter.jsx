@@ -7,10 +7,14 @@ import StudentDashboard from "../pages/student/Dashboard";
 import Categories from "../pages/admin/Categories";
 import Courses from "../pages/admin/Courses";
 import Countries from "../pages/admin/Countries";
-import Reports from "../pages/admin/Reports";
-import Users from "../pages/admin/Users";
+import Reports from '../pages/admin/Reports'
+import Users from '../pages/admin/Users';
+import Statistics from "../pages/admin/Statistics";
 import MyHours from "../pages/student/MyHours";
 import EditReport from "../pages/student/EditReport";
+
+
+
 
 // Componentes importados desde la rama JJ/Logout-loadingFile
 import RegisterHours from "../pages/student/RegisterHours";
@@ -47,6 +51,7 @@ function AppRouter() {
             <Route path="/admin/categories" element={<Categories />} />
             <Route path="/admin/countries" element={<Countries />} />
             <Route path="/admin/courses" element={<Courses />} />
+            <Route path="/admin/statistics" element={<Statistics />} />
             <Route path="/admin/reports" element={<Reports />} />
             <Route path="/admin/users" element={<Users />} />
           </Route>
