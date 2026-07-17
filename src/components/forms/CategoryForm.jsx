@@ -3,47 +3,36 @@
 
 function CategoryForm() {
   return (
-    <div>
-      <label
-        htmlFor="categoriaServicio"
-        className="mb-2 block text-sm font-semibold text-[#1F2937]"
-      >
-        Categoría de servicio
-        <span className="ml-1 text-red-500">*</span>
-      </label>
-
-      <select
-        id="categoriaServicio"
-        name="categoriaServicio"
-        defaultValue=""
-        required
-        className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#1F2937] outline-none transition focus:border-[#3B82F6] focus:ring-4 focus:ring-blue-100"
-      >
-        <option value="" disabled>
-          Seleccionar categoría
-        </option>
-
-        <option value="tutoria-companeros">
-          Tutoría a compañeros
-        </option>
-
-        <option value="apoyo-comunitario">
-          Apoyo comunitario
-        </option>
-
-        <option value="mentoria-estudiantes">
-          Mentoría a nuevos estudiantes
-        </option>
-
-        <option value="eventos-institucionales">
-          Eventos institucionales
-        </option>
-
-        <option value="traduccion-materiales">
-          Traducción de materiales
-        </option>
-      </select>
-    </div>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Input
+        label="Nombre"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        error={errors.name}
+        placeholder="Ej. Tutorías"
+      />
+      <Input
+        label="Descripción"
+        name="description"
+        value={form.description}
+        onChange={handleChange}
+        error={errors.description}
+        placeholder="Ej. Horas de servicio por tutorías"
+      />
+      <div className="flex gap-2">
+        <Button type="submit" loading={loading}>
+          {initialData ? "Guardar cambios" : "Crear categoría"}
+        </Button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="w-full rounded-[10px] border border-[#CBD5E1] bg-white px-5 py-[11px] text-sm font-semibold text-[#334155] transition-colors hover:bg-[#F1F5F9]"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
   );
 }
 
